@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6115377496257456683}
   - component: {fileID: 6556748604048118276}
   m_Layer: 5
-  m_Name: MainMenu
+  m_Name: Retry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -637,7 +637,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UI::Menu
   Selectables:
-  - {fileID: 0}
   - {fileID: 6556748604048118276}
   _firstSelected: {fileID: 0}
   _selectedAnimationScale: 1.1
