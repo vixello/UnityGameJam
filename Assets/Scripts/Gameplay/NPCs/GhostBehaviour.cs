@@ -62,14 +62,14 @@ namespace Assets.Scripts.Gameplay.NPCs
 
                 Vector3 basePos = Vector3.Lerp(start, target.position, t);
 
-                // Wave offset, decaying as we approach the target
+                // Wave _offsetPositionForLevels, decaying as we approach the target
                 float waveEase = Mathf.Sin((1 - t) * Mathf.PI * 0.5f);
                 basePos.y += Mathf.Sin(t * Mathf.PI * _waveAmplitude) * _waveFrequency * waveEase;
 
                 transform.position = basePos;
 
                 // Check if we are close enough
-                if (Math.Abs(transform.position.y - target.position.y) <= threshold)
+                if ((transform.position - target.position).sqrMagnitude <= threshold * threshold)
                     break;
 
                 // Also stop if duration exceeded

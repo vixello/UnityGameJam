@@ -10,12 +10,20 @@ namespace Core
     public class LevelController : MonoBehaviour, ISaveable
     {
         [SerializeField] int _levelIndex = 0;
+        [SerializeField] private Canvas _pauseMenu;
+        [SerializeField] private Canvas _winMenu;
         private LevelInfo _saveData;
 
         private void Start()
         {
             _saveData.levelIndex = _levelIndex;
+            EventBus.OnGamePause += OnPauseChanged;
             EventBus.OnSaveScore += UpdateSavedData;
+        }
+
+        private void OnPauseChanged(bool isPaused)
+        {
+            _pauseMenu.gameObject.SetActive(isPaused);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -24,6 +32,7 @@ namespace Core
             {
                 EventBus.InvokeChangeGameState(GameState.LevelComplete);
                 EventBus.InvokeLevelComplete();
+                _winMenu.gameObject.SetActive(true);
             }
         }
 

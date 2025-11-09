@@ -66,7 +66,27 @@ namespace Assets.Scripts.Gameplay
                 // 2. Unload old scenes
                 await UnloadScenes(transition.ScenesToUnload);
 
+                float fakeDuration = 1.5f;
+                float elapsed = 0f;
+                while (elapsed < fakeDuration)
+                {
+                    elapsed += Time.deltaTime;
+                    float progress = Mathf.Lerp(0f, 0.5f, elapsed / fakeDuration);
+                    loadingScreenDisposable.SetLoadingBarPercent(progress);
+                    await Task.Yield(); // let Unity update the UI each frame
+                }
+
                 loadingScreenDisposable.SetLoadingBarPercent(0.5f);
+
+                fakeDuration = 0.5f;
+                elapsed = 0f;
+                while (elapsed < fakeDuration)
+                {
+                    elapsed += Time.deltaTime;
+                    float progress = Mathf.Lerp(0.5f, 1f, elapsed / fakeDuration);
+                    loadingScreenDisposable.SetLoadingBarPercent(progress);
+                    await Task.Yield();
+                }
 
                 // 3. Load new scenes
                 await LoadScenes(transition.ScenesToLoad);

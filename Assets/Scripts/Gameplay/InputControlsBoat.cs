@@ -15,79 +15,76 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace Gameplay
+/// <summary>
+/// Provides programmatic access to <see cref="InputActionAsset" />, <see cref="InputActionMap" />, <see cref="InputAction" /> and <see cref="InputControlScheme" /> instances defined in asset "Assets/InputControls.inputactions".
+/// </summary>
+/// <remarks>
+/// This class is source generated and any manual edits will be discarded if the associated asset is reimported or modified.
+/// </remarks>
+/// <example>
+/// <code>
+/// using namespace UnityEngine;
+/// using UnityEngine.InputSystem;
+///
+/// // Example of using an InputActionMap named "Player" from a UnityEngine.MonoBehaviour implementing callback interface.
+/// public class Example : MonoBehaviour, MyActions.IPlayerActions
+/// {
+///     private MyActions_Actions m_Actions;                  // Source code representation of asset.
+///     private MyActions_Actions.PlayerActions m_Player;     // Source code representation of action map.
+///
+///     void Awake()
+///     {
+///         m_Actions = new MyActions_Actions();              // Create asset object.
+///         m_Player = m_Actions.Player;                      // Extract action map object.
+///         m_Player.AddCallbacks(this);                      // Register callback interface IPlayerActions.
+///     }
+///
+///     void OnDestroy()
+///     {
+///         m_Actions.Dispose();                              // Destroy asset object.
+///     }
+///
+///     void OnEnable()
+///     {
+///         m_Player.Enable();                                // Enable all actions within map.
+///     }
+///
+///     void OnDisable()
+///     {
+///         m_Player.Disable();                               // Disable all actions within map.
+///     }
+///
+///     #region Interface implementation of MyActions.IPlayerActions
+///
+///     // Invoked when "Move" action is either started, performed or canceled.
+///     public void OnMove(InputAction.CallbackContext context)
+///     {
+///         Debug.Log($"OnMove: {context.ReadValue&lt;Vector2&gt;()}");
+///     }
+///
+///     // Invoked when "Attack" action is either started, performed or canceled.
+///     public void OnAttack(InputAction.CallbackContext context)
+///     {
+///         Debug.Log($"OnAttack: {context.ReadValue&lt;float&gt;()}");
+///     }
+///
+///     #endregion
+/// }
+/// </code>
+/// </example>
+public partial class @InputControlsBoat: IInputActionCollection2, IDisposable
 {
+    /// <summary>
+    /// Provides access to the underlying asset instance.
+    /// </summary>
+    public InputActionAsset asset { get; }
 
     /// <summary>
-    /// Provides programmatic access to <see cref="InputActionAsset" />, <see cref="InputActionMap" />, <see cref="InputAction" /> and <see cref="InputControlScheme" /> instances defined in asset "Assets/InputControls.inputactions".
+    /// Constructs a new instance.
     /// </summary>
-    /// <remarks>
-    /// This class is source generated and any manual edits will be discarded if the associated asset is reimported or modified.
-    /// </remarks>
-    /// <example>
-    /// <code>
-    /// using namespace UnityEngine;
-    /// using UnityEngine.InputSystem;
-    ///
-    /// // Example of using an InputActionMap named "Player" from a UnityEngine.MonoBehaviour implementing callback interface.
-    /// public class Example : MonoBehaviour, MyActions.IPlayerActions
-    /// {
-    ///     private MyActions_Actions m_Actions;                  // Source code representation of asset.
-    ///     private MyActions_Actions.PlayerActions m_Player;     // Source code representation of action map.
-    ///
-    ///     void Awake()
-    ///     {
-    ///         m_Actions = new MyActions_Actions();              // Create asset object.
-    ///         m_Player = m_Actions.Player;                      // Extract action map object.
-    ///         m_Player.AddCallbacks(this);                      // Register callback interface IPlayerActions.
-    ///     }
-    ///
-    ///     void OnDestroy()
-    ///     {
-    ///         m_Actions.Dispose();                              // Destroy asset object.
-    ///     }
-    ///
-    ///     void OnEnable()
-    ///     {
-    ///         m_Player.Enable();                                // Enable all actions within map.
-    ///     }
-    ///
-    ///     void OnDisable()
-    ///     {
-    ///         m_Player.Disable();                               // Disable all actions within map.
-    ///     }
-    ///
-    ///     #region Interface implementation of MyActions.IPlayerActions
-    ///
-    ///     // Invoked when "Move" action is either started, performed or canceled.
-    ///     public void OnMove(InputAction.CallbackContext context)
-    ///     {
-    ///         Debug.Log($"OnMove: {context.ReadValue&lt;Vector2&gt;()}");
-    ///     }
-    ///
-    ///     // Invoked when "Attack" action is either started, performed or canceled.
-    ///     public void OnAttack(InputAction.CallbackContext context)
-    ///     {
-    ///         Debug.Log($"OnAttack: {context.ReadValue&lt;float&gt;()}");
-    ///     }
-    ///
-    ///     #endregion
-    /// }
-    /// </code>
-    /// </example>
-    public partial class @InputControlsBoat : IInputActionCollection2, IDisposable
+    public @InputControlsBoat()
     {
-        /// <summary>
-        /// Provides access to the underlying asset instance.
-        /// </summary>
-        public InputActionAsset asset { get; }
-
-        /// <summary>
-        /// Constructs a new instance.
-        /// </summary>
-        public @InputControlsBoat()
-        {
-            asset = InputActionAsset.FromJson(@"{
+        asset = InputActionAsset.FromJson(@"{
     ""version"": 1,
     ""name"": ""InputControls"",
     ""maps"": [
@@ -128,6 +125,15 @@ namespace Gameplay
                     ""id"": ""097a2ec8-8df3-4d48-96e5-fbf096270878"",
                     ""expectedControlType"": """",
                     ""processors"": ""AxisDeadzone(min=0.1,max=1)"",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""0323ba30-32db-456f-a0ea-616ca525ac7b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 }
@@ -400,11 +406,33 @@ namespace Gameplay
                 {
                     ""name"": """",
                     ""id"": ""6c9efbd8-b12e-4a6d-9787-042b4abda799"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a13c3cfb-5788-41de-8c4b-a9d798225c4b"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e8d482c-7568-4e6f-bf3e-05ba807836e5"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -418,7 +446,7 @@ namespace Gameplay
                     ""name"": ""PauseTime"",
                     ""type"": ""Button"",
                     ""id"": ""c57759c4-f215-4fe9-bd6c-1c835c6074bd"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -577,425 +605,443 @@ namespace Gameplay
         }
     ]
 }");
-            // BoatControls
-            m_BoatControls = asset.FindActionMap("BoatControls", throwIfNotFound: true);
-            m_BoatControls_Throttle = m_BoatControls.FindAction("Throttle", throwIfNotFound: true);
-            m_BoatControls_Steering = m_BoatControls.FindAction("Steering", throwIfNotFound: true);
-            m_BoatControls_Reset = m_BoatControls.FindAction("Reset", throwIfNotFound: true);
-            m_BoatControls_Pause = m_BoatControls.FindAction("Pause", throwIfNotFound: true);
-            // DebugControls
-            m_DebugControls = asset.FindActionMap("DebugControls", throwIfNotFound: true);
-            m_DebugControls_PauseTime = m_DebugControls.FindAction("PauseTime", throwIfNotFound: true);
-            m_DebugControls_TimeOfDay = m_DebugControls.FindAction("TimeOfDay", throwIfNotFound: true);
-        }
-
-        ~@InputControlsBoat()
-        {
-            UnityEngine.Debug.Assert(!m_BoatControls.enabled, "This will cause a leak and performance issues, InputControlsBoat.BoatControls.Disable() has not been called.");
-            UnityEngine.Debug.Assert(!m_DebugControls.enabled, "This will cause a leak and performance issues, InputControlsBoat.DebugControls.Disable() has not been called.");
-        }
-
-        /// <summary>
-        /// Destroys this asset and all associated <see cref="InputAction"/> instances.
-        /// </summary>
-        public void Dispose()
-        {
-            UnityEngine.Object.Destroy(asset);
-        }
-
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.bindingMask" />
-        public InputBinding? bindingMask
-        {
-            get => asset.bindingMask;
-            set => asset.bindingMask = value;
-        }
-
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.devices" />
-        public ReadOnlyArray<InputDevice>? devices
-        {
-            get => asset.devices;
-            set => asset.devices = value;
-        }
-
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.controlSchemes" />
-        public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
-
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.Contains(InputAction)" />
-        public bool Contains(InputAction action)
-        {
-            return asset.Contains(action);
-        }
-
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.GetEnumerator()" />
-        public IEnumerator<InputAction> GetEnumerator()
-        {
-            return asset.GetEnumerator();
-        }
-
-        /// <inheritdoc cref="IEnumerable.GetEnumerator()" />
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.Enable()" />
-        public void Enable()
-        {
-            asset.Enable();
-        }
-
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.Disable()" />
-        public void Disable()
-        {
-            asset.Disable();
-        }
-
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.bindings" />
-        public IEnumerable<InputBinding> bindings => asset.bindings;
-
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.FindAction(string, bool)" />
-        public InputAction FindAction(string actionNameOrId, bool throwIfNotFound = false)
-        {
-            return asset.FindAction(actionNameOrId, throwIfNotFound);
-        }
-
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.FindBinding(InputBinding, out InputAction)" />
-        public int FindBinding(InputBinding bindingMask, out InputAction action)
-        {
-            return asset.FindBinding(bindingMask, out action);
-        }
-
         // BoatControls
-        private readonly InputActionMap m_BoatControls;
-        private List<IBoatControlsActions> m_BoatControlsActionsCallbackInterfaces = new List<IBoatControlsActions>();
-        private readonly InputAction m_BoatControls_Throttle;
-        private readonly InputAction m_BoatControls_Steering;
-        private readonly InputAction m_BoatControls_Reset;
-        private readonly InputAction m_BoatControls_Pause;
-        /// <summary>
-        /// Provides access to input actions defined in input action map "BoatControls".
-        /// </summary>
-        public struct BoatControlsActions
-        {
-            private @InputControlsBoat m_Wrapper;
-
-            /// <summary>
-            /// Construct a new instance of the input action map wrapper class.
-            /// </summary>
-            public BoatControlsActions(@InputControlsBoat wrapper) { m_Wrapper = wrapper; }
-            /// <summary>
-            /// Provides access to the underlying input action "BoatControls/Throttle".
-            /// </summary>
-            public InputAction @Throttle => m_Wrapper.m_BoatControls_Throttle;
-            /// <summary>
-            /// Provides access to the underlying input action "BoatControls/Steering".
-            /// </summary>
-            public InputAction @Steering => m_Wrapper.m_BoatControls_Steering;
-            /// <summary>
-            /// Provides access to the underlying input action "BoatControls/Reset".
-            /// </summary>
-            public InputAction @Reset => m_Wrapper.m_BoatControls_Reset;
-            /// <summary>
-            /// Provides access to the underlying input action "BoatControls/Pause".
-            /// </summary>
-            public InputAction @Pause => m_Wrapper.m_BoatControls_Pause;
-            /// <summary>
-            /// Provides access to the underlying input action map instance.
-            /// </summary>
-            public InputActionMap Get() { return m_Wrapper.m_BoatControls; }
-            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
-            public void Enable() { Get().Enable(); }
-            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
-            public void Disable() { Get().Disable(); }
-            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
-            public bool enabled => Get().enabled;
-            /// <summary>
-            /// Implicitly converts an <see ref="BoatControlsActions" /> to an <see ref="InputActionMap" /> instance.
-            /// </summary>
-            public static implicit operator InputActionMap(BoatControlsActions set) { return set.Get(); }
-            /// <summary>
-            /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-            /// </summary>
-            /// <param name="instance">Callback instance.</param>
-            /// <remarks>
-            /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
-            /// </remarks>
-            /// <seealso cref="BoatControlsActions" />
-            public void AddCallbacks(IBoatControlsActions instance)
-            {
-                if (instance == null || m_Wrapper.m_BoatControlsActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_BoatControlsActionsCallbackInterfaces.Add(instance);
-                @Throttle.started += instance.OnThrottle;
-                @Throttle.performed += instance.OnThrottle;
-                @Throttle.canceled += instance.OnThrottle;
-                @Steering.started += instance.OnSteering;
-                @Steering.performed += instance.OnSteering;
-                @Steering.canceled += instance.OnSteering;
-                @Reset.started += instance.OnReset;
-                @Reset.performed += instance.OnReset;
-                @Reset.canceled += instance.OnReset;
-                @Pause.started += instance.OnPause;
-                @Pause.performed += instance.OnPause;
-                @Pause.canceled += instance.OnPause;
-            }
-
-            /// <summary>
-            /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-            /// </summary>
-            /// <remarks>
-            /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
-            /// </remarks>
-            /// <seealso cref="BoatControlsActions" />
-            private void UnregisterCallbacks(IBoatControlsActions instance)
-            {
-                @Throttle.started -= instance.OnThrottle;
-                @Throttle.performed -= instance.OnThrottle;
-                @Throttle.canceled -= instance.OnThrottle;
-                @Steering.started -= instance.OnSteering;
-                @Steering.performed -= instance.OnSteering;
-                @Steering.canceled -= instance.OnSteering;
-                @Reset.started -= instance.OnReset;
-                @Reset.performed -= instance.OnReset;
-                @Reset.canceled -= instance.OnReset;
-                @Pause.started -= instance.OnPause;
-                @Pause.performed -= instance.OnPause;
-                @Pause.canceled -= instance.OnPause;
-            }
-
-            /// <summary>
-            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="BoatControlsActions.UnregisterCallbacks(IBoatControlsActions)" />.
-            /// </summary>
-            /// <seealso cref="BoatControlsActions.UnregisterCallbacks(IBoatControlsActions)" />
-            public void RemoveCallbacks(IBoatControlsActions instance)
-            {
-                if (m_Wrapper.m_BoatControlsActionsCallbackInterfaces.Remove(instance))
-                    UnregisterCallbacks(instance);
-            }
-
-            /// <summary>
-            /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
-            /// </summary>
-            /// <remarks>
-            /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
-            /// </remarks>
-            /// <seealso cref="BoatControlsActions.AddCallbacks(IBoatControlsActions)" />
-            /// <seealso cref="BoatControlsActions.RemoveCallbacks(IBoatControlsActions)" />
-            /// <seealso cref="BoatControlsActions.UnregisterCallbacks(IBoatControlsActions)" />
-            public void SetCallbacks(IBoatControlsActions instance)
-            {
-                foreach (var item in m_Wrapper.m_BoatControlsActionsCallbackInterfaces)
-                    UnregisterCallbacks(item);
-                m_Wrapper.m_BoatControlsActionsCallbackInterfaces.Clear();
-                AddCallbacks(instance);
-            }
-        }
-        /// <summary>
-        /// Provides a new <see cref="BoatControlsActions" /> instance referencing this action map.
-        /// </summary>
-        public BoatControlsActions @BoatControls => new BoatControlsActions(this);
-
+        m_BoatControls = asset.FindActionMap("BoatControls", throwIfNotFound: true);
+        m_BoatControls_Throttle = m_BoatControls.FindAction("Throttle", throwIfNotFound: true);
+        m_BoatControls_Steering = m_BoatControls.FindAction("Steering", throwIfNotFound: true);
+        m_BoatControls_Reset = m_BoatControls.FindAction("Reset", throwIfNotFound: true);
+        m_BoatControls_Pause = m_BoatControls.FindAction("Pause", throwIfNotFound: true);
+        m_BoatControls_Sprint = m_BoatControls.FindAction("Sprint", throwIfNotFound: true);
         // DebugControls
-        private readonly InputActionMap m_DebugControls;
-        private List<IDebugControlsActions> m_DebugControlsActionsCallbackInterfaces = new List<IDebugControlsActions>();
-        private readonly InputAction m_DebugControls_PauseTime;
-        private readonly InputAction m_DebugControls_TimeOfDay;
-        /// <summary>
-        /// Provides access to input actions defined in input action map "DebugControls".
-        /// </summary>
-        public struct DebugControlsActions
-        {
-            private @InputControlsBoat m_Wrapper;
+        m_DebugControls = asset.FindActionMap("DebugControls", throwIfNotFound: true);
+        m_DebugControls_PauseTime = m_DebugControls.FindAction("PauseTime", throwIfNotFound: true);
+        m_DebugControls_TimeOfDay = m_DebugControls.FindAction("TimeOfDay", throwIfNotFound: true);
+    }
 
-            /// <summary>
-            /// Construct a new instance of the input action map wrapper class.
-            /// </summary>
-            public DebugControlsActions(@InputControlsBoat wrapper) { m_Wrapper = wrapper; }
-            /// <summary>
-            /// Provides access to the underlying input action "DebugControls/PauseTime".
-            /// </summary>
-            public InputAction @PauseTime => m_Wrapper.m_DebugControls_PauseTime;
-            /// <summary>
-            /// Provides access to the underlying input action "DebugControls/TimeOfDay".
-            /// </summary>
-            public InputAction @TimeOfDay => m_Wrapper.m_DebugControls_TimeOfDay;
-            /// <summary>
-            /// Provides access to the underlying input action map instance.
-            /// </summary>
-            public InputActionMap Get() { return m_Wrapper.m_DebugControls; }
-            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
-            public void Enable() { Get().Enable(); }
-            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
-            public void Disable() { Get().Disable(); }
-            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
-            public bool enabled => Get().enabled;
-            /// <summary>
-            /// Implicitly converts an <see ref="DebugControlsActions" /> to an <see ref="InputActionMap" /> instance.
-            /// </summary>
-            public static implicit operator InputActionMap(DebugControlsActions set) { return set.Get(); }
-            /// <summary>
-            /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-            /// </summary>
-            /// <param name="instance">Callback instance.</param>
-            /// <remarks>
-            /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
-            /// </remarks>
-            /// <seealso cref="DebugControlsActions" />
-            public void AddCallbacks(IDebugControlsActions instance)
-            {
-                if (instance == null || m_Wrapper.m_DebugControlsActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_DebugControlsActionsCallbackInterfaces.Add(instance);
-                @PauseTime.started += instance.OnPauseTime;
-                @PauseTime.performed += instance.OnPauseTime;
-                @PauseTime.canceled += instance.OnPauseTime;
-                @TimeOfDay.started += instance.OnTimeOfDay;
-                @TimeOfDay.performed += instance.OnTimeOfDay;
-                @TimeOfDay.canceled += instance.OnTimeOfDay;
-            }
+    ~@InputControlsBoat()
+    {
+        UnityEngine.Debug.Assert(!m_BoatControls.enabled, "This will cause a leak and performance issues, InputControlsBoat.BoatControls.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_DebugControls.enabled, "This will cause a leak and performance issues, InputControlsBoat.DebugControls.Disable() has not been called.");
+    }
 
-            /// <summary>
-            /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-            /// </summary>
-            /// <remarks>
-            /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
-            /// </remarks>
-            /// <seealso cref="DebugControlsActions" />
-            private void UnregisterCallbacks(IDebugControlsActions instance)
-            {
-                @PauseTime.started -= instance.OnPauseTime;
-                @PauseTime.performed -= instance.OnPauseTime;
-                @PauseTime.canceled -= instance.OnPauseTime;
-                @TimeOfDay.started -= instance.OnTimeOfDay;
-                @TimeOfDay.performed -= instance.OnTimeOfDay;
-                @TimeOfDay.canceled -= instance.OnTimeOfDay;
-            }
+    /// <summary>
+    /// Destroys this asset and all associated <see cref="InputAction"/> instances.
+    /// </summary>
+    public void Dispose()
+    {
+        UnityEngine.Object.Destroy(asset);
+    }
 
-            /// <summary>
-            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="DebugControlsActions.UnregisterCallbacks(IDebugControlsActions)" />.
-            /// </summary>
-            /// <seealso cref="DebugControlsActions.UnregisterCallbacks(IDebugControlsActions)" />
-            public void RemoveCallbacks(IDebugControlsActions instance)
-            {
-                if (m_Wrapper.m_DebugControlsActionsCallbackInterfaces.Remove(instance))
-                    UnregisterCallbacks(instance);
-            }
+    /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.bindingMask" />
+    public InputBinding? bindingMask
+    {
+        get => asset.bindingMask;
+        set => asset.bindingMask = value;
+    }
 
-            /// <summary>
-            /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
-            /// </summary>
-            /// <remarks>
-            /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
-            /// </remarks>
-            /// <seealso cref="DebugControlsActions.AddCallbacks(IDebugControlsActions)" />
-            /// <seealso cref="DebugControlsActions.RemoveCallbacks(IDebugControlsActions)" />
-            /// <seealso cref="DebugControlsActions.UnregisterCallbacks(IDebugControlsActions)" />
-            public void SetCallbacks(IDebugControlsActions instance)
-            {
-                foreach (var item in m_Wrapper.m_DebugControlsActionsCallbackInterfaces)
-                    UnregisterCallbacks(item);
-                m_Wrapper.m_DebugControlsActionsCallbackInterfaces.Clear();
-                AddCallbacks(instance);
-            }
-        }
+    /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.devices" />
+    public ReadOnlyArray<InputDevice>? devices
+    {
+        get => asset.devices;
+        set => asset.devices = value;
+    }
+
+    /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.controlSchemes" />
+    public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
+
+    /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.Contains(InputAction)" />
+    public bool Contains(InputAction action)
+    {
+        return asset.Contains(action);
+    }
+
+    /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.GetEnumerator()" />
+    public IEnumerator<InputAction> GetEnumerator()
+    {
+        return asset.GetEnumerator();
+    }
+
+    /// <inheritdoc cref="IEnumerable.GetEnumerator()" />
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+
+    /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.Enable()" />
+    public void Enable()
+    {
+        asset.Enable();
+    }
+
+    /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.Disable()" />
+    public void Disable()
+    {
+        asset.Disable();
+    }
+
+    /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.bindings" />
+    public IEnumerable<InputBinding> bindings => asset.bindings;
+
+    /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.FindAction(string, bool)" />
+    public InputAction FindAction(string actionNameOrId, bool throwIfNotFound = false)
+    {
+        return asset.FindAction(actionNameOrId, throwIfNotFound);
+    }
+
+    /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.FindBinding(InputBinding, out InputAction)" />
+    public int FindBinding(InputBinding bindingMask, out InputAction action)
+    {
+        return asset.FindBinding(bindingMask, out action);
+    }
+
+    // BoatControls
+    private readonly InputActionMap m_BoatControls;
+    private List<IBoatControlsActions> m_BoatControlsActionsCallbackInterfaces = new List<IBoatControlsActions>();
+    private readonly InputAction m_BoatControls_Throttle;
+    private readonly InputAction m_BoatControls_Steering;
+    private readonly InputAction m_BoatControls_Reset;
+    private readonly InputAction m_BoatControls_Pause;
+    private readonly InputAction m_BoatControls_Sprint;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "BoatControls".
+    /// </summary>
+    public struct BoatControlsActions
+    {
+        private @InputControlsBoat m_Wrapper;
+
         /// <summary>
-        /// Provides a new <see cref="DebugControlsActions" /> instance referencing this action map.
+        /// Construct a new instance of the input action map wrapper class.
         /// </summary>
-        public DebugControlsActions @DebugControls => new DebugControlsActions(this);
-        private int m_GamepadSchemeIndex = -1;
+        public BoatControlsActions(@InputControlsBoat wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the input control scheme.
+        /// Provides access to the underlying input action "BoatControls/Throttle".
         /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
-        public InputControlScheme GamepadScheme
+        public InputAction @Throttle => m_Wrapper.m_BoatControls_Throttle;
+        /// <summary>
+        /// Provides access to the underlying input action "BoatControls/Steering".
+        /// </summary>
+        public InputAction @Steering => m_Wrapper.m_BoatControls_Steering;
+        /// <summary>
+        /// Provides access to the underlying input action "BoatControls/Reset".
+        /// </summary>
+        public InputAction @Reset => m_Wrapper.m_BoatControls_Reset;
+        /// <summary>
+        /// Provides access to the underlying input action "BoatControls/Pause".
+        /// </summary>
+        public InputAction @Pause => m_Wrapper.m_BoatControls_Pause;
+        /// <summary>
+        /// Provides access to the underlying input action "BoatControls/Sprint".
+        /// </summary>
+        public InputAction @Sprint => m_Wrapper.m_BoatControls_Sprint;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_BoatControls; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="BoatControlsActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(BoatControlsActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="BoatControlsActions" />
+        public void AddCallbacks(IBoatControlsActions instance)
         {
-            get
-            {
-                if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
-                return asset.controlSchemes[m_GamepadSchemeIndex];
-            }
+            if (instance == null || m_Wrapper.m_BoatControlsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_BoatControlsActionsCallbackInterfaces.Add(instance);
+            @Throttle.started += instance.OnThrottle;
+            @Throttle.performed += instance.OnThrottle;
+            @Throttle.canceled += instance.OnThrottle;
+            @Steering.started += instance.OnSteering;
+            @Steering.performed += instance.OnSteering;
+            @Steering.canceled += instance.OnSteering;
+            @Reset.started += instance.OnReset;
+            @Reset.performed += instance.OnReset;
+            @Reset.canceled += instance.OnReset;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
+            @Sprint.started += instance.OnSprint;
+            @Sprint.performed += instance.OnSprint;
+            @Sprint.canceled += instance.OnSprint;
         }
-        private int m_KeyboardSchemeIndex = -1;
+
         /// <summary>
-        /// Provides access to the input control scheme.
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
         /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
-        public InputControlScheme KeyboardScheme
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="BoatControlsActions" />
+        private void UnregisterCallbacks(IBoatControlsActions instance)
         {
-            get
-            {
-                if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
-                return asset.controlSchemes[m_KeyboardSchemeIndex];
-            }
+            @Throttle.started -= instance.OnThrottle;
+            @Throttle.performed -= instance.OnThrottle;
+            @Throttle.canceled -= instance.OnThrottle;
+            @Steering.started -= instance.OnSteering;
+            @Steering.performed -= instance.OnSteering;
+            @Steering.canceled -= instance.OnSteering;
+            @Reset.started -= instance.OnReset;
+            @Reset.performed -= instance.OnReset;
+            @Reset.canceled -= instance.OnReset;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
+            @Sprint.started -= instance.OnSprint;
+            @Sprint.performed -= instance.OnSprint;
+            @Sprint.canceled -= instance.OnSprint;
         }
-        private int m_TouchScreenSchemeIndex = -1;
+
         /// <summary>
-        /// Provides access to the input control scheme.
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="BoatControlsActions.UnregisterCallbacks(IBoatControlsActions)" />.
         /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
-        public InputControlScheme TouchScreenScheme
+        /// <seealso cref="BoatControlsActions.UnregisterCallbacks(IBoatControlsActions)" />
+        public void RemoveCallbacks(IBoatControlsActions instance)
         {
-            get
-            {
-                if (m_TouchScreenSchemeIndex == -1) m_TouchScreenSchemeIndex = asset.FindControlSchemeIndex("TouchScreen");
-                return asset.controlSchemes[m_TouchScreenSchemeIndex];
-            }
+            if (m_Wrapper.m_BoatControlsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
         }
+
         /// <summary>
-        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "BoatControls" which allows adding and removing callbacks.
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
         /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
         /// <seealso cref="BoatControlsActions.AddCallbacks(IBoatControlsActions)" />
         /// <seealso cref="BoatControlsActions.RemoveCallbacks(IBoatControlsActions)" />
-        public interface IBoatControlsActions
+        /// <seealso cref="BoatControlsActions.UnregisterCallbacks(IBoatControlsActions)" />
+        public void SetCallbacks(IBoatControlsActions instance)
         {
-            /// <summary>
-            /// Method invoked when associated input action "Throttle" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnThrottle(InputAction.CallbackContext context);
-            /// <summary>
-            /// Method invoked when associated input action "Steering" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnSteering(InputAction.CallbackContext context);
-            /// <summary>
-            /// Method invoked when associated input action "Reset" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnReset(InputAction.CallbackContext context);
-            /// <summary>
-            /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnPause(InputAction.CallbackContext context);
+            foreach (var item in m_Wrapper.m_BoatControlsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_BoatControlsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
         }
+    }
+    /// <summary>
+    /// Provides a new <see cref="BoatControlsActions" /> instance referencing this action map.
+    /// </summary>
+    public BoatControlsActions @BoatControls => new BoatControlsActions(this);
+
+    // DebugControls
+    private readonly InputActionMap m_DebugControls;
+    private List<IDebugControlsActions> m_DebugControlsActionsCallbackInterfaces = new List<IDebugControlsActions>();
+    private readonly InputAction m_DebugControls_PauseTime;
+    private readonly InputAction m_DebugControls_TimeOfDay;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "DebugControls".
+    /// </summary>
+    public struct DebugControlsActions
+    {
+        private @InputControlsBoat m_Wrapper;
+
         /// <summary>
-        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "DebugControls" which allows adding and removing callbacks.
+        /// Construct a new instance of the input action map wrapper class.
         /// </summary>
+        public DebugControlsActions(@InputControlsBoat wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "DebugControls/PauseTime".
+        /// </summary>
+        public InputAction @PauseTime => m_Wrapper.m_DebugControls_PauseTime;
+        /// <summary>
+        /// Provides access to the underlying input action "DebugControls/TimeOfDay".
+        /// </summary>
+        public InputAction @TimeOfDay => m_Wrapper.m_DebugControls_TimeOfDay;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_DebugControls; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="DebugControlsActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(DebugControlsActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="DebugControlsActions" />
+        public void AddCallbacks(IDebugControlsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_DebugControlsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_DebugControlsActionsCallbackInterfaces.Add(instance);
+            @PauseTime.started += instance.OnPauseTime;
+            @PauseTime.performed += instance.OnPauseTime;
+            @PauseTime.canceled += instance.OnPauseTime;
+            @TimeOfDay.started += instance.OnTimeOfDay;
+            @TimeOfDay.performed += instance.OnTimeOfDay;
+            @TimeOfDay.canceled += instance.OnTimeOfDay;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="DebugControlsActions" />
+        private void UnregisterCallbacks(IDebugControlsActions instance)
+        {
+            @PauseTime.started -= instance.OnPauseTime;
+            @PauseTime.performed -= instance.OnPauseTime;
+            @PauseTime.canceled -= instance.OnPauseTime;
+            @TimeOfDay.started -= instance.OnTimeOfDay;
+            @TimeOfDay.performed -= instance.OnTimeOfDay;
+            @TimeOfDay.canceled -= instance.OnTimeOfDay;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="DebugControlsActions.UnregisterCallbacks(IDebugControlsActions)" />.
+        /// </summary>
+        /// <seealso cref="DebugControlsActions.UnregisterCallbacks(IDebugControlsActions)" />
+        public void RemoveCallbacks(IDebugControlsActions instance)
+        {
+            if (m_Wrapper.m_DebugControlsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
         /// <seealso cref="DebugControlsActions.AddCallbacks(IDebugControlsActions)" />
         /// <seealso cref="DebugControlsActions.RemoveCallbacks(IDebugControlsActions)" />
-        public interface IDebugControlsActions
+        /// <seealso cref="DebugControlsActions.UnregisterCallbacks(IDebugControlsActions)" />
+        public void SetCallbacks(IDebugControlsActions instance)
         {
-            /// <summary>
-            /// Method invoked when associated input action "PauseTime" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnPauseTime(InputAction.CallbackContext context);
-            /// <summary>
-            /// Method invoked when associated input action "TimeOfDay" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnTimeOfDay(InputAction.CallbackContext context);
+            foreach (var item in m_Wrapper.m_DebugControlsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_DebugControlsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
         }
+    }
+    /// <summary>
+    /// Provides a new <see cref="DebugControlsActions" /> instance referencing this action map.
+    /// </summary>
+    public DebugControlsActions @DebugControls => new DebugControlsActions(this);
+    private int m_GamepadSchemeIndex = -1;
+    /// <summary>
+    /// Provides access to the input control scheme.
+    /// </summary>
+    /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
+    public InputControlScheme GamepadScheme
+    {
+        get
+        {
+            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+            return asset.controlSchemes[m_GamepadSchemeIndex];
+        }
+    }
+    private int m_KeyboardSchemeIndex = -1;
+    /// <summary>
+    /// Provides access to the input control scheme.
+    /// </summary>
+    /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
+    public InputControlScheme KeyboardScheme
+    {
+        get
+        {
+            if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
+            return asset.controlSchemes[m_KeyboardSchemeIndex];
+        }
+    }
+    private int m_TouchScreenSchemeIndex = -1;
+    /// <summary>
+    /// Provides access to the input control scheme.
+    /// </summary>
+    /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
+    public InputControlScheme TouchScreenScheme
+    {
+        get
+        {
+            if (m_TouchScreenSchemeIndex == -1) m_TouchScreenSchemeIndex = asset.FindControlSchemeIndex("TouchScreen");
+            return asset.controlSchemes[m_TouchScreenSchemeIndex];
+        }
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "BoatControls" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="BoatControlsActions.AddCallbacks(IBoatControlsActions)" />
+    /// <seealso cref="BoatControlsActions.RemoveCallbacks(IBoatControlsActions)" />
+    public interface IBoatControlsActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Throttle" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnThrottle(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Steering" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSteering(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Reset" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnReset(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPause(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Sprint" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSprint(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "DebugControls" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="DebugControlsActions.AddCallbacks(IDebugControlsActions)" />
+    /// <seealso cref="DebugControlsActions.RemoveCallbacks(IDebugControlsActions)" />
+    public interface IDebugControlsActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "PauseTime" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPauseTime(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "TimeOfDay" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTimeOfDay(InputAction.CallbackContext context);
     }
 }

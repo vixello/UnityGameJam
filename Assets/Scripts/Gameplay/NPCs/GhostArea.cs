@@ -8,16 +8,17 @@ using UnityEngine;
 
 namespace Assets.Scripts.Gameplay.NPCs
 {
+    [DefaultExecutionOrder(-10)]
     public class GhostArea : MonoBehaviour
     {
-        [Header("Place To Move The Ghosts to")]
-        [SerializeField] private Transform _targetPosition;
 
         [Header("Area Information")]
         [SerializeField] int _areaIndex;
         [SerializeField] GameObject _ghostParent;
-        private GhostBehaviour[] _ghostBehaviours;
+
         private int _areaGhostCount = 0;
+        private GhostBehaviour[] _ghostBehaviours;
+        private Transform _targetPosition;
 
         private void Start()
         {
@@ -33,7 +34,15 @@ namespace Assets.Scripts.Gameplay.NPCs
             _ghostBehaviours = ghosts.ToArray();
             _areaGhostCount = _ghostBehaviours.Length;
 
+            EventBus.OnSendTargetData += AssignTargetPosition;
+
             Debug.Log($"GhostArea {_areaIndex} found {_areaGhostCount} ghosts under {_ghostParent.name}");
+        }
+
+        private void AssignTargetPosition(Transform targetPosition)
+        {
+            Debug.Log("Assigned target position");
+            _targetPosition = targetPosition;
         }
 
         private void OnTriggerEnter(Collider other)

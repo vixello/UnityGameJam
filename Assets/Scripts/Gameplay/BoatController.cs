@@ -1,5 +1,9 @@
+using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Core;
+using static Core.EventBus;
+using System;
 
 namespace Gameplay
 {
@@ -13,7 +17,7 @@ namespace Gameplay
         [SerializeField] private float damping = 0.9f;
 
         [Header("Boat Movement")]
-        [SerializeField] private Transform motorPosition;   // Where thrust is applied (back of boat)
+        [SerializeField] private Transform motorPosition;   // Where thrust is applied (back of _boatPerLevel)
         [SerializeField] private Transform rudderPosition;  // Where turning force is applied
         [SerializeField] private float motorForce = 50f;
         [SerializeField] private float rudderForce = 10f;
@@ -21,7 +25,6 @@ namespace Gameplay
         [SerializeField] private Material waterFx;
 
         private Rigidbody rb;
-        private InputControlsBoat _controls;
         private float _throttle = 0f;
         private float _steering = 0f;
 
@@ -29,17 +32,26 @@ namespace Gameplay
         {
             rb = GetComponent<Rigidbody>();
             rb.centerOfMass = Vector3.down * 0.5f;
-
-            _controls = new InputControlsBoat();
-            _controls.BoatControls.Throttle.performed += ctx => _throttle = ctx.ReadValue<float>();
-            _controls.BoatControls.Throttle.canceled += ctx => _throttle = 0f;
-
-            _controls.BoatControls.Steering.performed += ctx => _steering = ctx.ReadValue<float>()*-1;
-            _controls.BoatControls.Steering.canceled += ctx => _steering = 0f;
+            rb.isKinematic = false;
         }
 
-        private void OnEnable() => _controls.Enable();
-        private void OnDisable() => _controls.Disable();
+        private void OnEnable()
+        {
+            EventBus.OnLevelComplete += ReactToLevelComplete;
+            EventBus.OnThrottleChanged += value => _throttle = value;
+            EventBus.OnSteeringChanged += value => _steering = value;
+            EventBus.OnSprintChanged += OnSprintChanged;
+            EventBus.OnGamePause += OnPauseChanged;
+        }
+
+        private void OnDisable()
+        {
+            EventBus.OnLevelComplete -= ReactToLevelComplete;
+            EventBus.OnThrottleChanged -= value => _throttle = value;
+            EventBus.OnSteeringChanged -= value => _steering = value;
+            EventBus.OnSprintChanged -= OnSprintChanged;
+            EventBus.OnGamePause -= OnPauseChanged;
+        }
 
         private void FixedUpdate()
         {
@@ -49,6 +61,28 @@ namespace Gameplay
             ApplyDamping();
 
             waterFx.SetFloat("_Speed", rb.linearVelocity.magnitude);
+        }
+
+        private void ReactToLevelComplete()
+        {
+            rb.isKinematic = true;
+        }
+
+        private void OnSprintChanged(bool isSprinting)
+        {
+            if (isSprinting)
+                motorForce *= 1.2f; // or use a multiplier
+            else
+                motorForce /= 1.2f;
+
+            Debug.Log($"Sprint: {isSprinting}");
+        }
+
+        private void OnPauseChanged(bool isPaused)
+        {
+            // Freeze physics, show UI, or whatever you want
+            rb.isKinematic = isPaused;
+            Debug.Log("Paused: " + isPaused);
         }
 
         private void ApplyBuoyancy()
@@ -65,7 +99,7 @@ namespace Gameplay
 
         private void ApplyMotor()
         {
-            // Motor always pushes along boat's forward direction
+            // Motor always pushes along _boatPerLevel's forward direction
             if (motorPosition != null)
             {
                 Vector3 thrust = motorPosition.forward * _throttle * motorForce;

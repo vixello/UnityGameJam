@@ -41,6 +41,15 @@
                     "processors": "AxisDeadzone(min=0.1,max=1)",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Sprint",
+                    "type": "Button",
+                    "id": "0323ba30-32db-456f-a0ea-616ca525ac7b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -311,11 +320,33 @@
                 {
                     "name": "",
                     "id": "6c9efbd8-b12e-4a6d-9787-042b4abda799",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a13c3cfb-5788-41de-8c4b-a9d798225c4b",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4e8d482c-7568-4e6f-bf3e-05ba807836e5",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -329,7 +360,7 @@
                     "name": "PauseTime",
                     "type": "Button",
                     "id": "c57759c4-f215-4fe9-bd6c-1c835c6074bd",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false

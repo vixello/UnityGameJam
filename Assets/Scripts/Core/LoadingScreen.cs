@@ -7,6 +7,7 @@ namespace Core
     public class LoadingScreen : MonoBehaviour
     {
         [SerializeField] private Slider _loadingBar;
+        [SerializeField] private Animator _animator;
 
         public void Show()
         {
@@ -14,6 +15,7 @@ namespace Core
         }
         public void Hide()
         {
+            Deactivate();
             gameObject.SetActive(false);
         }
 
@@ -37,5 +39,17 @@ namespace Core
 
             _loadingBar.value = targetPercent; 
         }
+
+        private IEnumerator Deactivate()
+        {
+            _animator.Play("HideLoadingScreen");
+
+            AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+            float animationLength = stateInfo.length;
+            yield return new WaitForSeconds(animationLength);
+
+            Destroy(gameObject);
+        }
+
     }
 }

@@ -7,28 +7,45 @@ namespace Gameplay
 {
     public class Player : MonoBehaviour, ISaveable
     {
-        private int _colletedGhosts = 0;
+        [Header("Place To Move The Ghosts to")]
+        [SerializeField] private Transform _ghostTargetPosition;
+
+        private int _collectedGhosts = 0;
         private PlayerSaveData _playerSaveData;
 
         private void Start()
         {
             EventBus.OnCollectGhosts += UpdateCollectedGhostCount;
+            EventBus.OnCustomerLost += ChangeCollectedGhostNumber;
             EventBus.OnLevelComplete += ReactToLevelComplete;
+            EventBus.InvokeSendTargetData(_ghostTargetPosition);
+        }
+
+        private void OnDisable()
+        {
+            EventBus.OnCollectGhosts -= UpdateCollectedGhostCount;
+            EventBus.OnCustomerLost -= ChangeCollectedGhostNumber;
+            EventBus.OnLevelComplete -= ReactToLevelComplete;
+        }
+
+        private void ChangeCollectedGhostNumber(int currentCustomers)
+        {
+            _collectedGhosts = currentCustomers;
         }
 
         private void ReactToLevelComplete()
         {
-            EventBus.InvokeSaveScore(_colletedGhosts);
+            EventBus.InvokeSaveScore(_collectedGhosts);
         }
 
-        private void UpdateCollectedGhostCount(int ghostConnt)
+        private void UpdateCollectedGhostCount(int ghostCount)
         {
-            _colletedGhosts += ghostConnt;
+            _collectedGhosts += ghostCount;
         }
 
         public void LoadData(SaveSystem.SaveData data)
         {
-            throw new NotImplementedException();
+            data.PlayerSaveData  = _playerSaveData;
         }
 
         public void SaveData(ref SaveSystem.SaveData data)

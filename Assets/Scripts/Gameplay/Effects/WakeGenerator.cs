@@ -109,7 +109,7 @@ namespace BoatAttack.Boat
         WakePoint CreateWakePoint(Vector3 pos, float sign)
         {
             WakePoint wp = new WakePoint(pos);
-            wp.dir = transform.right * sign; // the point gets the direction of the side of the boat, thhis is then used to move the wake as it ages
+            wp.dir = transform.right * sign; // the point gets the direction of the side of the _boatPerLevel, thhis is then used to move the wake as it ages
             wp.dir.y = 0;
             return wp;
         }
