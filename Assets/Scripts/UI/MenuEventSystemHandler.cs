@@ -53,7 +53,15 @@ namespace UI
         protected IEnumerator SelectAfterDelay()
         {
             yield return null;
-            EventSystem.current.SetSelectedGameObject(_firstSelected.gameObject);
+
+            if (_firstSelected != null && _firstSelected.gameObject != null)
+            {
+                EventSystem.current.SetSelectedGameObject(_firstSelected.gameObject);
+            }
+            else
+            {
+                Debug.LogWarning("MenuEventSystemHandler: _firstSelected is not assigned!");
+            }
         }
 
         protected virtual void AddSelectionListeners(Selectable selected)
