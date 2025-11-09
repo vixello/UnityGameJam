@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef04debe8bd982b45814ff48f0c133af, type: 3}
   m_Name: From_Level2_To_Menu
   m_EditorClassIdentifier: Gameplay::Assets.Scripts.Gameplay.SceneTransitionSO
-  ScenesToLoad: []
-  ScenesToUnload: []
+  ScenesToLoad:
+  - m_SceneAsset: {fileID: 102900000, guid: 8c9cfa26abfee488c85f1582747f6a02, type: 3}
+    m_SceneName: MainMenu
+  ScenesToUnload:
+  - m_SceneAsset: {fileID: 102900000, guid: 978141bcf6db2e44f837f8ffdf17071d, type: 3}
+    m_SceneName: LevelTwo

@@ -17,4 +17,4 @@ MonoBehaviour:
     m_SceneName: MainMenu
   ScenesToUnload:
   - m_SceneAsset: {fileID: 102900000, guid: eb22fab48d8de6942b62a7afd7863919, type: 3}
-    m_SceneName: TestScene
+    m_SceneName: LevelOne

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gameplay::Assets.Scripts.Gameplay.SceneTransitionSO
   ScenesToLoad:
   - m_SceneAsset: {fileID: 102900000, guid: eb22fab48d8de6942b62a7afd7863919, type: 3}
-    m_SceneName: TestScene
+    m_SceneName: LevelOne
   ScenesToUnload:
   - m_SceneAsset: {fileID: 102900000, guid: 8c9cfa26abfee488c85f1582747f6a02, type: 3}
     m_SceneName: MainMenu
