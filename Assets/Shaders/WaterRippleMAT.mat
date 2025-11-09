@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: StylisedWaterMAT
-  m_Shader: {fileID: -6465566751694194690, guid: 2fa99bcc797de5847a02faa79a116815, type: 3}
+  m_Name: WaterRippleMAT
+  m_Shader: {fileID: -6465566751694194690, guid: ec0c891b157f51249ac4ca53876c4fd8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -28,7 +28,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Texture2D:
+    - _RippleTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -46,23 +46,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FoamAmount: 1
-    - _FoamScale: 100
-    - _FoamSpeed: 0.3
-    - _FormCutOff: 1
+    - _NormalStrength: 0.1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RefractionScale: 5
-    - _RefractionSpeed: 0.06
-    - _RefractionStrength: 0.3
-    - _WaterDepth: 10.81
+    - _Smoothness: 0
     m_Colors:
-    - _DeepWater: {r: 0, g: 0.22459865, b: 0.26037726, a: 0.83137256}
-    - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ShallowWater: {r: 0.26226395, g: 0.806218, b: 1, a: 0.5647059}
+    - _Color: {r: 0.5639801, g: 0.70013374, b: 0.78867924, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &5568628752008560419
+--- !u!114 &2820996687079819545
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

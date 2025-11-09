@@ -30,8 +30,11 @@ Material:
     m_Ints: []
     m_Floats:
     - _DstBlend: 1
+    - _Fade: 0.5
+    - _Intensity: 1.07
     - _Invert: 0
-    - _SrcBlend: 4
-    m_Colors: []
+    - _SrcBlend: 6
+    m_Colors:
+    - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

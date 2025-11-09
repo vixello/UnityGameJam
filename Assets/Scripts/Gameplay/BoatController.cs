@@ -7,16 +7,18 @@ namespace Gameplay
     public class BoatController : MonoBehaviour
     {
         [Header("Buoyancy")]
-        public Transform[] buoyancyPoints;
-        public float buoyancyForce = 10f;
-        public float waterLevel = 0f;
-        public float damping = 0.9f;
+        [SerializeField] private Transform[] buoyancyPoints;
+        [SerializeField] private float buoyancyForce = 10f;
+        [SerializeField] private float waterLevel = 0f;
+        [SerializeField] private float damping = 0.9f;
 
         [Header("Boat Movement")]
-        public Transform motorPosition;   // Where thrust is applied (back of boat)
-        public Transform rudderPosition;  // Where turning force is applied
-        public float motorForce = 50f;
-        public float rudderForce = 10f;
+        [SerializeField] private Transform motorPosition;   // Where thrust is applied (back of boat)
+        [SerializeField] private Transform rudderPosition;  // Where turning force is applied
+        [SerializeField] private float motorForce = 50f;
+        [SerializeField] private float rudderForce = 10f;
+
+        [SerializeField] private Material waterFx;
 
         private Rigidbody rb;
         private InputControlsBoat _controls;
@@ -45,6 +47,8 @@ namespace Gameplay
             ApplyMotor();
             ApplyRudder();
             ApplyDamping();
+
+            waterFx.SetFloat("_Speed", rb.linearVelocity.magnitude);
         }
 
         private void ApplyBuoyancy()

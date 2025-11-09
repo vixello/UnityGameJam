@@ -1,11 +1,37 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BoatCameraTarget : MonoBehaviour
 {
-    public Transform boat;           // Assign your boat
-    public Vector3 offset = new Vector3(0, 2, -6); // Camera offset
-    public float rotationSmooth = 5f;
-    public float positionSmooth = 5f;
+    [SerializeField] private bool _lockPositionY = false;
+    [SerializeField] private bool _lockRotationXZ = false;
+    [SerializeField] private Transform boat;           // Assign your boat
+    [SerializeField] private Vector3 offset = new Vector3(0, 2, -6); // Camera offset
+
+    [SerializeField] private float rotationSmooth = 5f;
+    [SerializeField] private float positionSmooth = 5f;
+
+    private delegate Vector3 PositioningStrategy() ;
+    private PositioningStrategy positioningStrategy;
+
+    private delegate Quaternion RotatingStrategy() ;
+    private RotatingStrategy rotatingStrategy;
+    private void Start()
+    {
+        positioningStrategy += _lockPositionY ? StrategyLockY : StategyDontLockY;
+    }
+    private Vector3 StrategyLockY()
+    {
+        Vector3 targetXZ = boat.position + transform.rotation * offset;
+        targetXZ.y = transform.position.y; // Keep current Y
+        return targetXZ;
+    }
+
+    private Vector3 StategyDontLockY()
+    {
+        return boat.position + transform.rotation * offset;
+    }
+
 
     void LateUpdate()
     {
@@ -18,7 +44,8 @@ public class BoatCameraTarget : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSmooth);
 
         // Position target behind the boat using the rotated offset
-        Vector3 desiredPosition = boat.position + transform.rotation * offset;
+        Vector3 desiredPosition = positioningStrategy();
+
         transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * positionSmooth);
     }
 }

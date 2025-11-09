@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Core
@@ -6,8 +7,11 @@ namespace Core
     {
         Pause,
         Loading,
-        Start
+        InGame,
+        GameOver,
+        LevelComplete
     }
+
     public class GameManager : MonoBehaviour
     {
         private GameState _state;
@@ -15,6 +19,16 @@ namespace Core
         void Start()
         {
             _state = GameState.Loading;
+
+            EventBus.OnChangeGameState += ChangeGameState;
+        }
+
+        private void ChangeGameState(GameState gameState)
+        {
+            if (_state != gameState)
+            {
+                _state = gameState;
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Threading.Tasks;
 using Core;
+using System.Linq;
 
 namespace Assets.Scripts.Gameplay
 {
@@ -71,6 +72,11 @@ namespace Assets.Scripts.Gameplay
                 await LoadScenes(transition.ScenesToLoad);
 
                 loadingScreenDisposable.SetLoadingBarPercent(1.0f);
+
+                if (transition.ScenesToLoad[0].SceneName.Contains("Level"))
+                {
+                    EventBus.InvokeChangeGameState(GameState.InGame);
+                }
             }
 
             if (_loadingScene != null && IsSceneLoaded(_loadingScene.SceneName))
