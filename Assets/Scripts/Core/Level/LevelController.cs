@@ -12,6 +12,7 @@ namespace Core
         [SerializeField] int _levelIndex = 0;
         [SerializeField] private Canvas _pauseMenu;
         [SerializeField] private Canvas _winMenu;
+        [SerializeField] private Material _sky;
         private LevelInfo _saveData;
 
         private void Start()

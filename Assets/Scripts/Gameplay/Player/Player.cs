@@ -16,7 +16,7 @@ namespace Gameplay
         private void Start()
         {
             EventBus.OnCollectGhosts += UpdateCollectedGhostCount;
-            EventBus.OnCustomerLost += ChangeCollectedGhostNumber;
+            EventBus.OnCustomerLost += ReactToCustomerLost;
             EventBus.OnLevelComplete += ReactToLevelComplete;
             EventBus.InvokeSendTargetData(_ghostTargetPosition);
         }
@@ -24,13 +24,8 @@ namespace Gameplay
         private void OnDisable()
         {
             EventBus.OnCollectGhosts -= UpdateCollectedGhostCount;
-            EventBus.OnCustomerLost -= ChangeCollectedGhostNumber;
+            EventBus.OnCustomerLost -= ReactToCustomerLost;
             EventBus.OnLevelComplete -= ReactToLevelComplete;
-        }
-
-        private void ChangeCollectedGhostNumber(int currentCustomers)
-        {
-            _collectedGhosts = currentCustomers;
         }
 
         private void ReactToLevelComplete()
@@ -41,8 +36,15 @@ namespace Gameplay
         private void UpdateCollectedGhostCount(int ghostCount)
         {
             _collectedGhosts += ghostCount;
+            EventBus.InvokePointsUpdated(_collectedGhosts);
         }
 
+        private void ReactToCustomerLost(int currentCustomers)
+        {
+            _collectedGhosts = currentCustomers;
+            EventBus
+                .InvokePointsUpdated(_collectedGhosts);
+        }
         public void LoadData(SaveSystem.SaveData data)
         {
             data.PlayerSaveData  = _playerSaveData;

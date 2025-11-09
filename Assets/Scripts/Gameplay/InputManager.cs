@@ -6,13 +6,20 @@ namespace Gameplay
     public class InputManager : MonoBehaviour
     {
         private InputControlsBoat _controls;
-
+        public static InputManager Instance { get; private set; }
         public float Throttle { get; private set; }
         public float Steering { get; private set; }
         public bool Sprint { get; private set; }
 
         private void Awake()
         {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject); 
+                return;
+            }
+            Instance = this;
+
             _controls = new InputControlsBoat();
 
             _controls.BoatControls.Throttle.performed += ctx =>

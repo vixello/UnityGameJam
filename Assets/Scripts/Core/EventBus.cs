@@ -72,5 +72,13 @@ namespace Core
         {
             OnCustomerLost?.Invoke(currentCustomers);
         }
+
+        public delegate void PointsUpdated(int currentCustomers);
+        public static event PointsUpdated OnPointsUpdated;
+
+        public static void InvokePointsUpdated(int collectedGhosts)
+        {
+            OnPointsUpdated?.Invoke(collectedGhosts);
+        }
     }
 }
