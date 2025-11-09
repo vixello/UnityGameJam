@@ -138,6 +138,41 @@ namespace Assets.Scripts.Gameplay
             return false;
         }
 
+        public async void ReloadCurrentLevel()
+        {
+            // Find the currently loaded level in SceneManager
+            string activeLevel = null;
+
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                Scene loadedScene = SceneManager.GetSceneAt(i);
+                if (loadedScene.name == "LevelOne" ||
+                    loadedScene.name == "LevelTwo" ||
+                    loadedScene.name == "LevelThree")
+                {
+                    activeLevel = loadedScene.name;
+                    break; // stop after finding the first matching level
+                }
+            }
+
+            if (activeLevel == null)
+            {
+                Debug.LogWarning("No known level is currently loaded to reload.");
+                return;
+            }
+
+            Debug.Log($"Reloading currently loaded level: {activeLevel}");
+
+            // Reload the scene asynchronously
+            var asyncOp = SceneManager.LoadSceneAsync(activeLevel, LoadSceneMode.Single);
+            while (!asyncOp.isDone)
+            {
+                await Task.Yield();
+            }
+
+            Debug.Log($"{activeLevel} reloaded successfully!");
+        }
+
         public async Task LoadScenes(SceneField[] _scenesToLoad)
         {
             for (int i = 0; i < _scenesToLoad.Length; ++i)

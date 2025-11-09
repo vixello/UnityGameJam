@@ -41,6 +41,7 @@ namespace Gameplay
             EventBus.OnThrottleChanged += value => _throttle = value;
             EventBus.OnSteeringChanged += value => _steering = value;
             EventBus.OnSprintChanged += OnSprintChanged;
+            EventBus.OnChangeGameState += React;
             EventBus.OnGamePause += OnPauseChanged;
         }
 
@@ -66,6 +67,13 @@ namespace Gameplay
         private void ReactToLevelComplete()
         {
             rb.isKinematic = true;
+        }
+        private void React(GameState gameState)
+        {
+            if (gameState == GameState.GameOver)
+            {
+                rb.isKinematic = true;
+            }
         }
 
         private void OnSprintChanged(bool isSprinting)

@@ -5,6 +5,13 @@ namespace Core
 {
     public class EventBus
     {
+        public static event Action<float> OnTimerUpdated;
+
+        public static void InvokeTimerUpdated(float timeRemaining)
+        {
+            OnTimerUpdated?.Invoke(timeRemaining);
+
+        }
         public delegate void GamePause(bool isPaused);
         public static event GamePause OnGamePause;
         private static bool _isPaused = false; // Track current pause state

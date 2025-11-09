@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using Core;
-using UnityEngine.UI;
-using System;
 
 namespace Gameplay
 {
+
     public class CustomerMoodSystem : MonoBehaviour
     {
         [Header("Mood Settings")]

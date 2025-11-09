@@ -21,6 +21,8 @@ namespace Gameplay
             EventBus.InvokeSendTargetData(_ghostTargetPosition);
         }
 
+
+
         private void OnDisable()
         {
             EventBus.OnCollectGhosts -= UpdateCollectedGhostCount;
