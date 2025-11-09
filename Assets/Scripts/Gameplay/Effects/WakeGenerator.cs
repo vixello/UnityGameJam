@@ -87,7 +87,7 @@ namespace BoatAttack.Boat
                             _wake.lines[s].points[i].pos += _wake.lines[s].points[i].dir * 3 * Time.deltaTime; // move points by dir
                         }
                     }
-                    ///////////////////// Create the line renderer points ///////////////////////////////
+                    ///////////////////// Create the line _renderer points ///////////////////////////////
                     
                     _wake.lines[s]._lineRenderer.positionCount = pointCount + 1;
                     _wake.lines[s]._lineRenderer.SetPosition(0, origin);
@@ -155,7 +155,7 @@ namespace BoatAttack.Boat
         }
 
         /// <summary>
-        /// WakeLine is a single side of a wake, it contains a line renderer and list of wakepoints
+        /// WakeLine is a single side of a wake, it contains a line _renderer and list of wakepoints
         /// </summary>
         [System.Serializable]
         public class WakeLine

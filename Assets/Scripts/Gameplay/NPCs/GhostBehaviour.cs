@@ -8,48 +8,117 @@ namespace Assets.Scripts.Gameplay.NPCs
 {
     internal class GhostBehaviour : MonoBehaviour
     {
-        [SerializeField] private float _duration = 2f;   
+        [SerializeField] private float _duration = 2.2f;   
         [SerializeField] private float _waveAmplitude = 0.5f; 
         [SerializeField] private float _waveFrequency = 2f;
+        [SerializeField] private Material _ghostMaterial;
+
+        private int _moveSpeed = 1;
+        private Animator _animator;
+        private Renderer _renderer;
+
+        [SerializeField] private Color[] _colorsToChooseFrom;
         private bool _wasPickedUp = false;
 
-        /*        private Vector3 _startPosition;
-                private float _elapsed = 0f;
-                private bool moving = false;
 
-                private void Start()
-                {
-                    _startPosition = transform.position;
-                }
-        */
-
-        public void MoveToTarget(Vector3 target)
+        private void Start()
         {
-            if(!_wasPickedUp) StartCoroutine(MoveCoroutine(target));
+            // Randomize color and scale
+            _moveSpeed = UnityEngine.Random.Range(1, 3);
+
+            int randomColorIndex = UnityEngine.Random.Range(0, _colorsToChooseFrom.Length);
+            float randomScale = UnityEngine.Random.Range(0.8f, 1.2f);
+
+            var mpb = new MaterialPropertyBlock();
+            Color baseColor = _colorsToChooseFrom[randomColorIndex];
+
+            _renderer = GetComponentInChildren<Renderer>();
+            _renderer.GetPropertyBlock(mpb);
+
+            mpb.SetColor("_Color", baseColor * 2.1f);
+            _renderer.SetPropertyBlock(mpb);
+
+            _animator = GetComponent<Animator>();
+            if(!_animator) _animator.speed = randomScale;
+            transform.localScale *= randomScale;
         }
 
-        private IEnumerator MoveCoroutine(Vector3 target)
+        public void MoveToTarget(Transform target)
         {
-            Vector3 start = transform.position;
-            float elapsed = 0f;
+            Debug.Log("Move to target");
+            if (!_wasPickedUp) StartCoroutine(MoveCoroutine(target));
+        }
 
-            while (elapsed < _duration)
+        private IEnumerator MoveCoroutine(Transform target)
+        {
+            float elapsed = 0f;
+            float threshold = 0.1f;
+            Vector3 start = transform.position;
+
+            while (true)
             {
-                elapsed += Time.deltaTime;
+                elapsed += _moveSpeed * Time.deltaTime;
                 float t = Mathf.Clamp01(elapsed / _duration);
 
-                Vector3 basePos = Vector3.Lerp(start, target, t);
+                Vector3 basePos = Vector3.Lerp(start, target.position, t);
 
-                // Add sine wave on Y-axis
-                basePos.y += Mathf.Sin(t * Mathf.PI * _waveAmplitude) * _waveFrequency;
+                // Wave offset, decaying as we approach the target
+                float waveEase = Mathf.Sin((1 - t) * Mathf.PI * 0.5f);
+                basePos.y += Mathf.Sin(t * Mathf.PI * _waveAmplitude) * _waveFrequency * waveEase;
 
                 transform.position = basePos;
 
-                yield return null; 
+                // Check if we are close enough
+                if (Math.Abs(transform.position.y - target.position.y) <= threshold)
+                    break;
+
+                // Also stop if duration exceeded
+                if (t >= 1f)
+                    break;
+
+                yield return null;
             }
 
-            transform.position = target;
+            // Ensure exact final position
+            transform.position = target.position;
+
+            StartCoroutine(Deactivate());
             _wasPickedUp = true;
+        }
+
+
+        private IEnumerator Deactivate()
+        {
+            _animator.Play("GhostHide");
+            StartCoroutine(FadeOutMaterial());
+
+            AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+            float animationLength = stateInfo.length;
+            yield return new WaitForSeconds(animationLength);
+
+            Destroy(gameObject);
+        }
+
+        private IEnumerator FadeOutMaterial()
+        {
+            var mpb = new MaterialPropertyBlock();
+            _renderer.GetPropertyBlock(mpb);
+            Color originalColor = mpb.GetColor("_Color");
+            float elapsed = 1f;
+
+            while (elapsed > 0f)
+            {
+                elapsed -= Time.deltaTime; 
+                float t = Mathf.Clamp01(elapsed);
+
+                mpb.SetColor("_Color", originalColor * t); 
+                _renderer.SetPropertyBlock(mpb);
+
+                yield return null;
+            }
+
+            mpb.SetColor("_Color", originalColor * 0f);
+            _renderer.SetPropertyBlock(mpb);
         }
     }
 }

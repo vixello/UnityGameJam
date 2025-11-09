@@ -21,23 +21,30 @@ namespace Assets.Scripts.Gameplay.NPCs
 
         private void Start()
         {
-            Transform[] allChildren = _ghostParent.GetComponentsInChildren<Transform>();
+            List<GhostBehaviour> ghosts = new List<GhostBehaviour>();
 
-            for (int i = 0; i < allChildren.Count(); ++i)
+            foreach (Transform child in _ghostParent.transform)
             {
-                _ghostBehaviours[i] = allChildren[i].GetComponent<GhostBehaviour>();
-                _areaGhostCount++;
+                GhostBehaviour gb = child.GetComponent<GhostBehaviour>();
+                if (gb != null)
+                    ghosts.Add(gb);
             }
+
+            _ghostBehaviours = ghosts.ToArray();
+            _areaGhostCount = _ghostBehaviours.Length;
+
+            Debug.Log($"GhostArea {_areaIndex} found {_areaGhostCount} ghosts under {_ghostParent.name}");
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                foreach(GhostBehaviour ghostBehaviour in _ghostBehaviours)
+                Debug.Log("Call move to target");
+                for (int i =0; i < _areaGhostCount; i++) 
                 {
-                    if(ghostBehaviour != null && _targetPosition != null)
-                    ghostBehaviour.MoveToTarget(_targetPosition.transform.position);
+                    if(_ghostBehaviours[i] != null && _targetPosition != null)
+                    _ghostBehaviours[i].MoveToTarget(_targetPosition);
                 }
 
                 EventBus.InvokeCollectGhosts(_areaGhostCount);
