@@ -16,7 +16,6 @@ namespace Core
         public void Hide()
         {
             Deactivate();
-            gameObject.SetActive(false);
         }
 
         public void SetBarPercent(float percent)
@@ -48,7 +47,7 @@ namespace Core
             float animationLength = stateInfo.length;
             yield return new WaitForSeconds(animationLength);
 
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
     }

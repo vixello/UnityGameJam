@@ -1,9 +1,5 @@
-using UnityEngine.InputSystem;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Core;
-using static Core.EventBus;
-using System;
 
 namespace Gameplay
 {

@@ -26,9 +26,25 @@ namespace Bootstrap
             {
                 loadingScreenDisposable.SetLoadingBarPercent(0f);
                 await InitializeObjects();
-                loadingScreenDisposable.SetLoadingBarPercent(0.33f);
+                float fakeDuration = 1f;
+                float elapsed = 0f;
+                while (elapsed < fakeDuration)
+                {
+                    elapsed += Time.deltaTime;
+                    float progress = Mathf.Lerp(0f, 0.5f, elapsed / fakeDuration);
+                    loadingScreenDisposable.SetLoadingBarPercent(progress);
+                    await Task.Yield(); // let Unity update the UI each frame
+                }
                 await CreateObjects();
-                loadingScreenDisposable.SetLoadingBarPercent(0.66f);
+                fakeDuration = 0.5f;
+                elapsed = 0f;
+                while (elapsed < fakeDuration)
+                {
+                    elapsed += Time.deltaTime;
+                    float progress = Mathf.Lerp(0.5f, 1f, elapsed / fakeDuration);
+                    loadingScreenDisposable.SetLoadingBarPercent(progress);
+                    await Task.Yield();
+                }
                 await PrepareGame();
                 loadingScreenDisposable.SetLoadingBarPercent(1.0f);
             }

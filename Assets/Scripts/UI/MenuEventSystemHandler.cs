@@ -13,101 +13,78 @@ namespace UI
         public List<Selectable> Selectables = new List<Selectable>();
         [SerializeField] protected Selectable _firstSelected;
 
-        //[SerializeField] protected InputActionReference _navigateReference;
-
         [Header("Animations")]
         [SerializeField] protected float _selectedAnimationScale = 1.1f;
         [SerializeField] protected float _scaleDuration = 0.25f;
-        [SerializeField] protected List<GameObject> _aniamtionExclusions = new List<GameObject>();
+        [SerializeField] protected List<GameObject> _animationExclusions = new List<GameObject>();
 
         protected Selectable _lastSelected;
-
         protected Dictionary<Selectable, Vector3> _scales = new Dictionary<Selectable, Vector3>();
 
         private void Awake()
         {
             foreach (Selectable selectable in Selectables)
             {
+                if (selectable == null) continue;
                 AddSelectionListeners(selectable);
-                _scales.Add(selectable, selectable.transform.localScale);
+                if (!_scales.ContainsKey(selectable))
+                    _scales.Add(selectable, selectable.transform.localScale);
             }
         }
 
         private void OnEnable()
         {
-            //_navigateReference.action.performed += OnNavigate;
-
-            for(int i = 0; i < Selectables.Count; i++)
+            foreach (Selectable sel in Selectables)
             {
-                Selectables[i].transform.localScale = _scales[Selectables[i]];
+                if (sel != null && _scales.ContainsKey(sel))
+                    sel.transform.localScale = _scales[sel];
             }
 
             StartCoroutine(SelectAfterDelay());
-        }
-
-        private void OnDisable()
-        {
-            //_navigateReference.action.performed -= OnNavigate;
         }
 
         protected IEnumerator SelectAfterDelay()
         {
             yield return null;
 
-            if (_firstSelected != null && _firstSelected.gameObject != null)
+            if (_firstSelected != null && _firstSelected.gameObject != null && _firstSelected.gameObject.activeInHierarchy)
             {
-                EventSystem.current.SetSelectedGameObject(_firstSelected.gameObject);
+                EventSystem.current?.SetSelectedGameObject(_firstSelected.gameObject);
             }
             else
             {
-                Debug.LogWarning("MenuEventSystemHandler: _firstSelected is not assigned!");
+                Debug.LogWarning("MenuEventSystemHandler: _firstSelected is not assigned or inactive!");
             }
         }
 
         protected virtual void AddSelectionListeners(Selectable selected)
         {
-            EventTrigger trigger = selected.gameObject.GetComponent<EventTrigger>();
+            if (selected == null) return;
 
-            if(trigger == null ) 
-            {
+            EventTrigger trigger = selected.GetComponent<EventTrigger>();
+            if (trigger == null)
                 trigger = selected.gameObject.AddComponent<EventTrigger>();
-            }
 
-            EventTrigger.Entry selectEntry = new EventTrigger.Entry
-            {
-                eventID = EventTriggerType.Select,
-            };
-            selectEntry.callback.AddListener(OnSelect);
-            trigger.triggers.Add(selectEntry);
+            AddEventTrigger(trigger, EventTriggerType.Select, OnSelect);
+            AddEventTrigger(trigger, EventTriggerType.Deselect, OnDeselect);
+            AddEventTrigger(trigger, EventTriggerType.PointerEnter, OnPointerEnter);
+            AddEventTrigger(trigger, EventTriggerType.PointerExit, OnPointerExit);
+        }
 
-            EventTrigger.Entry deselectEntry = new EventTrigger.Entry
-            {
-                eventID = EventTriggerType.Deselect,
-            };
-            deselectEntry.callback.AddListener(OnDeselect);
-            trigger.triggers.Add(deselectEntry);
-
-
-            EventTrigger.Entry pointerEnter = new EventTrigger.Entry
-            {
-                eventID = EventTriggerType.PointerEnter,
-            };
-            pointerEnter.callback.AddListener(OnPointerEnter);
-            trigger.triggers.Add(pointerEnter);
-
-            EventTrigger.Entry pointerExit = new EventTrigger.Entry
-            {
-                eventID = EventTriggerType.PointerExit,
-            };
-            pointerExit.callback.AddListener(OnPointerExit);
-            trigger.triggers.Add(pointerExit);
+        private void AddEventTrigger(EventTrigger trigger, EventTriggerType type, UnityEngine.Events.UnityAction<BaseEventData> action)
+        {
+            var entry = new EventTrigger.Entry { eventID = type };
+            entry.callback.AddListener(action);
+            trigger.triggers.Add(entry);
         }
 
         public void OnSelect(BaseEventData eventData)
         {
+            if (eventData.selectedObject == null) return;
+
             _lastSelected = eventData.selectedObject.GetComponent<Selectable>();
 
-            if (_aniamtionExclusions.Contains(eventData.selectedObject)) return;
+            if (_animationExclusions.Contains(eventData.selectedObject)) return;
 
             Vector3 newScale = eventData.selectedObject.transform.localScale * _selectedAnimationScale;
             StartCoroutine(eventData.selectedObject.transform.ScaleTo(newScale, _scaleDuration));
@@ -115,47 +92,40 @@ namespace UI
 
         public void OnDeselect(BaseEventData eventData)
         {
-            Selectable sel = eventData.selectedObject.GetComponent<Selectable>();
-            StartCoroutine(eventData.selectedObject.transform.ScaleTo(_scales[sel], _scaleDuration));
+            if (eventData.selectedObject == null) return;
+
+            var sel = eventData.selectedObject.GetComponent<Selectable>();
+            if (sel != null && _scales.ContainsKey(sel))
+                StartCoroutine(eventData.selectedObject.transform.ScaleTo(_scales[sel], _scaleDuration));
         }
 
         public void OnPointerEnter(BaseEventData eventData)
         {
-            PointerEventData pointerEventData = eventData as PointerEventData;
-
-            if(pointerEventData != null)
-            {
+            if (eventData is PointerEventData pointerEventData)
                 pointerEventData.selectedObject = pointerEventData.pointerEnter;
-            }
         }
 
         public void OnPointerExit(BaseEventData eventData)
         {
-            PointerEventData pointerEventData = eventData as PointerEventData;
-
-            if (pointerEventData != null)
-            {
+            if (eventData is PointerEventData pointerEventData)
                 pointerEventData.selectedObject = null;
-            }
         }
 
         public virtual void OnNavigate(InputAction.CallbackContext context)
         {
-            if(EventSystem.current.currentSelectedGameObject == null && _lastSelected != null)
-            {
+            if (EventSystem.current == null) return;
+
+            if (EventSystem.current.currentSelectedGameObject == null && _lastSelected != null)
                 EventSystem.current.SetSelectedGameObject(_lastSelected.gameObject);
-            }
         }
     }
-}
 
-
-namespace UI
-{
     public static class TransformTween
     {
         public static IEnumerator ScaleTo(this Transform transform, Vector3 targetScale, float duration, AnimationCurve curve = null)
         {
+            if (transform == null) yield break;
+
             Vector3 startScale = transform.localScale;
             float time = 0f;
             curve ??= AnimationCurve.EaseInOut(0, 0, 1, 1);
@@ -173,13 +143,13 @@ namespace UI
 
         public static IEnumerator PunchScale(this Transform transform, float punchAmount = 0.2f, float duration = 0.3f)
         {
+            if (transform == null) yield break;
+
             Vector3 startScale = transform.localScale;
             Vector3 maxScale = startScale * (1 + punchAmount);
             float halfDuration = duration / 2f;
 
-            // Scale up
             yield return transform.ScaleTo(maxScale, halfDuration);
-            // Scale back down
             yield return transform.ScaleTo(startScale, halfDuration);
         }
     }

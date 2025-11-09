@@ -426,6 +426,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 346385199}
     - target: {fileID: 8218144222146136248, guid: 21321934ed333c44b9043c9f9f289f49, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8218144222146136248, guid: 21321934ed333c44b9043c9f9f289f49, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -547,6 +551,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameLifetimeScope
       objectReference: {fileID: 0}
+    - target: {fileID: 7713090099084966336, guid: 0bf63c876005d01438df38280853a53b, type: 3}
+      propertyPath: _audioManager
+      value: 
+      objectReference: {fileID: 7402903006142332121, guid: 715ecb63a69e8e141aef3fa59f9959ad, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -58,8 +58,9 @@ namespace Assets.Scripts.Gameplay
                 await SceneManager.LoadSceneAsync(_loadingScene.SceneName, LoadSceneMode.Additive);
                 _loadingScreen = await GetLoadingScreen(_loadingScene);
             }
+            Debug.LogWarning($"transition {transition.name}");
 
-            using(var loadingScreenDisposable = new ShowLoadingScreenDisposable(_loadingScreen))
+            using (var loadingScreenDisposable = new ShowLoadingScreenDisposable(_loadingScreen))
             {
                 loadingScreenDisposable.SetLoadingBarPercent(0f);
 
@@ -169,6 +170,7 @@ namespace Assets.Scripts.Gameplay
             {
                 await Task.Yield();
             }
+            EventBus.InvokeChangeGameState(GameState.InGame);
 
             Debug.Log($"{activeLevel} reloaded successfully!");
         }

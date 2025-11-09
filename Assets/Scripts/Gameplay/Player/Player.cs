@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Core;
+using TMPro;
 
 namespace Gameplay
 {
@@ -9,9 +10,11 @@ namespace Gameplay
     {
         [Header("Place To Move The Ghosts to")]
         [SerializeField] private Transform _ghostTargetPosition;
+        [SerializeField] private TextMeshProUGUI _updatefinish;
 
         private int _collectedGhosts = 0;
         private PlayerSaveData _playerSaveData;
+        private int _ghostCountPerLevel = 0;
 
         private void Start()
         {
@@ -19,15 +22,29 @@ namespace Gameplay
             EventBus.OnCustomerLost += ReactToCustomerLost;
             EventBus.OnLevelComplete += ReactToLevelComplete;
             EventBus.InvokeSendTargetData(_ghostTargetPosition);
+            EventBus.OnCreatedArea += UpdateGhostCountPerLevel;
+            EventBus.OnChangeGameState += React;
         }
 
-
+        private void React(GameState gameState)
+        {
+            if(gameState == GameState.GameOver)
+            {
+                _updatefinish.text = $"{_collectedGhosts}/{_ghostCountPerLevel}";
+            }
+        }
 
         private void OnDisable()
         {
             EventBus.OnCollectGhosts -= UpdateCollectedGhostCount;
             EventBus.OnCustomerLost -= ReactToCustomerLost;
             EventBus.OnLevelComplete -= ReactToLevelComplete;
+            EventBus.OnCreatedArea -= UpdateGhostCountPerLevel;
+        }
+        private void UpdateGhostCountPerLevel(int ghostCount)
+        {
+            _ghostCountPerLevel += ghostCount;
+            Debug.Log("Ghost count per level: " + _ghostCountPerLevel);
         }
 
         private void ReactToLevelComplete()

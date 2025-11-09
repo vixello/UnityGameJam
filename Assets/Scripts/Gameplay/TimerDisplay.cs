@@ -6,7 +6,8 @@
 
     public class TimerDisplay : MonoBehaviour
     {
-        [SerializeField] private TMP_Text timerText;
+        [SerializeField] private TMP_Text _timerText;
+        [SerializeField] private Color _timerFlash;
 
         private void OnEnable()
         {
@@ -20,11 +21,16 @@
 
         private void UpdateTimerText(float timeRemaining)
         {
-            if (timerText == null) return;
+            if (_timerText == null) return;
+            if (timeRemaining <= 30f)
+            {
+                _timerText.color = _timerFlash;
+            }
+
 
             int minutes = Mathf.FloorToInt(timeRemaining / 60f);
             int seconds = Mathf.FloorToInt(timeRemaining % 60f);
-            timerText.text = $"Time - {minutes:00}:{seconds:00}";
+            _timerText.text = $"Time - {minutes:00}:{seconds:00}";
         }
     }
 }

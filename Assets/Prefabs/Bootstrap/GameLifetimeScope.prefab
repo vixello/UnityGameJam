@@ -52,3 +52,4 @@ MonoBehaviour:
   _updatePublisher: {fileID: 3158394950061200984, guid: 5621aceac3c0e0c47bb1c4193371370d, type: 3}
   _additiveScenesManager: {fileID: 2267069392014380656, guid: 58c08e83d2f07264d909bc125bc2dab2, type: 3}
   _inputManagerBoat: {fileID: 4291076910769553131, guid: c4cbf15f8a94a4549841ae9471a228e2, type: 3}
+  _audioManager: {fileID: 7402903006142332121, guid: 715ecb63a69e8e141aef3fa59f9959ad, type: 3}

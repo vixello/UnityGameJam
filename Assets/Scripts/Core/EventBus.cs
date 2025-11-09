@@ -87,5 +87,13 @@ namespace Core
         {
             OnPointsUpdated?.Invoke(collectedGhosts);
         }
+
+        public delegate void CreatedArea(int currentCustomers);
+        public static event CreatedArea OnCreatedArea;
+         
+        public static void InvokeCreatedArea(int areaGhostCount)
+        {
+            OnCreatedArea?.Invoke(areaGhostCount);
+        }
     }
 }

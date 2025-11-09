@@ -1,9 +1,5 @@
 ﻿using Core;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Gameplay.NPCs
@@ -11,7 +7,6 @@ namespace Assets.Scripts.Gameplay.NPCs
     [DefaultExecutionOrder(-10)]
     public class GhostArea : MonoBehaviour
     {
-
         [Header("Area Information")]
         [SerializeField] int _areaIndex;
         [SerializeField] GameObject _ghostParent;
@@ -35,10 +30,12 @@ namespace Assets.Scripts.Gameplay.NPCs
             _areaGhostCount = _ghostBehaviours.Length;
 
             EventBus.OnSendTargetData += AssignTargetPosition;
+            EventBus.InvokeCreatedArea(_areaGhostCount);
 
             Debug.Log($"GhostArea {_areaIndex} found {_areaGhostCount} ghosts under {_ghostParent.name}");
         }
 
+        
         private void AssignTargetPosition(Transform targetPosition)
         {
             Debug.Log("Assigned target position");
@@ -61,6 +58,7 @@ namespace Assets.Scripts.Gameplay.NPCs
         }
 
 #if UNITY_EDITOR
+        [System.Obsolete]
         private void OnValidate()
         {
             // Only run in the Editor, not in Play mode

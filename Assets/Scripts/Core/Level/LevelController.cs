@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace Core
 {
+    [DefaultExecutionOrder(-20)]
     public class LevelController : MonoBehaviour, ISaveable
     {
         [SerializeField] private int _levelIndex = 0;
@@ -14,8 +15,8 @@ namespace Core
         [SerializeField] private Material _sky;
         [SerializeField] private float levelDuration = 3f; // 3 minutes
 
-        private float _timer;
         private bool _isGameOver = false;
+        private float _timer;
 
         private LevelInfo _saveData;
 
@@ -26,6 +27,13 @@ namespace Core
 
             EventBus.OnGamePause += OnPauseChanged;
             EventBus.OnSaveScore += UpdateSavedData;
+        }
+
+
+        private void OnDisable()
+        {
+            EventBus.OnGamePause -= OnPauseChanged;
+            EventBus.OnSaveScore -= UpdateSavedData;
         }
 
         private void Update()
@@ -87,6 +95,7 @@ namespace Core
             _saveData.maxScore = _saveData.maxScore > ghostCount ? ghostCount : _saveData.maxScore;
             SaveSystem.Save();
         }
+
 
         public void SaveData(ref SaveSystem.SaveData data)
         {
