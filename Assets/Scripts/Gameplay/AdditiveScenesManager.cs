@@ -165,7 +165,7 @@ namespace Assets.Scripts.Gameplay
             Debug.Log($"Reloading currently loaded level: {activeLevel}");
 
             // Reload the scene asynchronously
-            var asyncOp = SceneManager.LoadSceneAsync(activeLevel, LoadSceneMode.Single);
+            var asyncOp = SceneManager.LoadSceneAsync(activeLevel, LoadSceneMode.Additive);
             while (!asyncOp.isDone)
             {
                 await Task.Yield();

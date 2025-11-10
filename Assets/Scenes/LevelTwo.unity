@@ -628,6 +628,10 @@ PrefabInstance:
 
         death to others!'
       objectReference: {fileID: 0}
+    - target: {fileID: 4545298688659252259, guid: 15f747312fce6ba4aa89773cb197e390, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 2ea9019ae8add57479981c91e44a7bae, type: 2}
     - target: {fileID: 6957236590310531596, guid: 15f747312fce6ba4aa89773cb197e390, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -721,6 +725,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15f747312fce6ba4aa89773cb197e390, type: 3}
+--- !u!114 &961783615 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4305538381031009656, guid: 15f747312fce6ba4aa89773cb197e390, type: 3}
+  m_PrefabInstance: {fileID: 961783614}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &977760973
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1244,6 +1259,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 7508406630792071187, guid: dd461b352c6cfd74aa666a4be453b388, type: 3}
+      propertyPath: _updatefinish
+      value: 
+      objectReference: {fileID: 961783615}
     - target: {fileID: 8633496954219082818, guid: dd461b352c6cfd74aa666a4be453b388, type: 3}
       propertyPath: m_LocalPosition.x
       value: -50.57133
@@ -1545,6 +1564,18 @@ PrefabInstance:
       propertyPath: _timerText
       value: 
       objectReference: {fileID: 1889816926}
+    - target: {fileID: 7037808260608343754, guid: 8359754ca45d6d74aa4945d2e006ce11, type: 3}
+      propertyPath: _timerFlash.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037808260608343754, guid: 8359754ca45d6d74aa4945d2e006ce11, type: 3}
+      propertyPath: _timerFlash.b
+      value: 0.38553858
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037808260608343754, guid: 8359754ca45d6d74aa4945d2e006ce11, type: 3}
+      propertyPath: _timerFlash.g
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

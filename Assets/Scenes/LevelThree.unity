@@ -562,19 +562,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1939711694167507743, guid: 15f747312fce6ba4aa89773cb197e390, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442070119165475858, guid: 15f747312fce6ba4aa89773cb197e390, type: 3}
+      propertyPath: m_Pivot.x
+      value: -0.72790146
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442070119165475858, guid: 15f747312fce6ba4aa89773cb197e390, type: 3}
+      propertyPath: m_Pivot.y
+      value: -14.882865
+      objectReference: {fileID: 0}
     - target: {fileID: 2442070119165475858, guid: 15f747312fce6ba4aa89773cb197e390, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 502
+      value: -656
       objectReference: {fileID: 0}
     - target: {fileID: 2442070119165475858, guid: 15f747312fce6ba4aa89773cb197e390, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 202
+      value: 83.82
       objectReference: {fileID: 0}
     - target: {fileID: 3675849874756334802, guid: 15f747312fce6ba4aa89773cb197e390, type: 3}
       propertyPath: m_text
-      value: 'You can now bring more happines
+      value: 'that''s it for bringing
 
-        death to others!'
+        happiness death!'
       objectReference: {fileID: 0}
     - target: {fileID: 6957236590310531596, guid: 15f747312fce6ba4aa89773cb197e390, type: 3}
       propertyPath: m_Pivot.x
@@ -664,11 +676,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8763437344288229871, guid: 15f747312fce6ba4aa89773cb197e390, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15f747312fce6ba4aa89773cb197e390, type: 3}
+--- !u!114 &961783615 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4305538381031009656, guid: 15f747312fce6ba4aa89773cb197e390, type: 3}
+  m_PrefabInstance: {fileID: 961783614}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!114 &1049819353 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3439242309294249632, guid: 66b0c448a0a76a04885362012cd651eb, type: 3}
@@ -1136,6 +1163,10 @@ PrefabInstance:
       propertyPath: m_Axis.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 7508406630792071187, guid: 91e22b2655d85014c86d3e7c7f505745, type: 3}
+      propertyPath: _updatefinish
+      value: 
+      objectReference: {fileID: 961783615}
     - target: {fileID: 8633496954219082818, guid: 91e22b2655d85014c86d3e7c7f505745, type: 3}
       propertyPath: m_LocalPosition.x
       value: -50.02858
