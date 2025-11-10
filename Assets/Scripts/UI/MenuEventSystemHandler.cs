@@ -45,17 +45,28 @@ namespace UI
 
         protected IEnumerator SelectAfterDelay()
         {
-            yield return null;
+            // Wait a short moment to let scene load & UI become active
+            yield return new WaitForSecondsRealtime(0.5f);
 
-            if (_firstSelected != null && _firstSelected.gameObject != null && _firstSelected.gameObject.activeInHierarchy)
+            // Double-check that EventSystem still exists and button is valid
+            if (EventSystem.current == null)
             {
-                EventSystem.current?.SetSelectedGameObject(_firstSelected.gameObject);
+                Debug.LogWarning("No active EventSystem found!");
+                yield break;
+            }
+
+            if (_firstSelected != null && _firstSelected.gameObject.activeInHierarchy)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(_firstSelected.gameObject);
+                Debug.Log($"Selected UI element: {_firstSelected.name}");
             }
             else
             {
                 Debug.LogWarning("MenuEventSystemHandler: _firstSelected is not assigned or inactive!");
             }
         }
+
 
         protected virtual void AddSelectionListeners(Selectable selected)
         {

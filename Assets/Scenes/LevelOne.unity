@@ -2921,7 +2921,7 @@ PrefabInstance:
       objectReference: {fileID: 1979834830}
     - target: {fileID: 6954293534464240567, guid: fb381b43399dac44a957e98d8941aafb, type: 3}
       propertyPath: levelDuration
-      value: 3
+      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2942,7 +2942,7 @@ PrefabInstance:
       objectReference: {fileID: 1049819353}
     - target: {fileID: 926659250867679168, guid: 66b0c448a0a76a04885362012cd651eb, type: 3}
       propertyPath: _currentLevel
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 926659250867679168, guid: 66b0c448a0a76a04885362012cd651eb, type: 3}
       propertyPath: '_boatPerLevel.Array.data[0]'
