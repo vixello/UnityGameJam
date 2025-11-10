@@ -1884,10 +1884,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6954293534464240567, guid: fb381b43399dac44a957e98d8941aafb, type: 3}
-      propertyPath: _sky
-      value: 
-      objectReference: {fileID: 2100000, guid: 64bd937c0029e2845b55487603854835, type: 2}
-    - target: {fileID: 6954293534464240567, guid: fb381b43399dac44a957e98d8941aafb, type: 3}
       propertyPath: _winMenu
       value: 
       objectReference: {fileID: 1596215629}
