@@ -1,5 +1,6 @@
 using Assets.Scripts.Gameplay;
 using Core;
+using Gameplay;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace Bootstrap
         [Inject] private readonly GameManager _gameManager;
         [Inject] private readonly UpdatePublisher _updatePublisher;
         [Inject] private readonly AdditiveScenesManager _additiveScenesManager;
+        [Inject] private readonly InputManager _inputManager;
 
         private async void Start()
         {

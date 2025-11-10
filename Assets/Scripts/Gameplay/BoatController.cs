@@ -47,6 +47,7 @@ namespace Gameplay
             EventBus.OnThrottleChanged -= value => _throttle = value;
             EventBus.OnSteeringChanged -= value => _steering = value;
             EventBus.OnSprintChanged -= OnSprintChanged;
+            EventBus.OnChangeGameState -= React;
             EventBus.OnGamePause -= OnPauseChanged;
         }
 

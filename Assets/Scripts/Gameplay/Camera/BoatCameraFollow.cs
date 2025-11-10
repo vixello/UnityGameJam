@@ -38,6 +38,11 @@ public class BoatCameraTarget : MonoBehaviour
         positioningStrategy += _lockPositionY ? StrategyLockY : StategyDontLockY;
     }
 
+    private void OnDisable()
+    {
+        EventBus.OnSprintChanged -= OnSprintChanged;
+    }
+
     private void OnSprintChanged(bool isSprinting)
     {
         _isSprinting = isSprinting;
